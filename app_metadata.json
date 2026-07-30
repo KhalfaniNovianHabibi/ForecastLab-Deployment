@@ -1,0 +1,158 @@
+{
+  "categories": [
+    "Juice",
+    "Milk",
+    "ReadyMeal",
+    "SnackBar",
+    "Yogurt"
+  ],
+  "channels": [
+    "Discount",
+    "E-commerce",
+    "Retail"
+  ],
+  "regions": [
+    "PL-Central",
+    "PL-North",
+    "PL-South"
+  ],
+  "pack_types": [
+    "Carton",
+    "Multipack",
+    "Single"
+  ],
+  "category_defaults": {
+    "Juice": {
+      "avg_price": 5.27,
+      "avg_units_sold": 17.9,
+      "avg_delivery_days": 3.0
+    },
+    "Milk": {
+      "avg_price": 5.23,
+      "avg_units_sold": 17.6,
+      "avg_delivery_days": 3.0
+    },
+    "ReadyMeal": {
+      "avg_price": 5.27,
+      "avg_units_sold": 19.8,
+      "avg_delivery_days": 3.0
+    },
+    "SnackBar": {
+      "avg_price": 5.25,
+      "avg_units_sold": 20.1,
+      "avg_delivery_days": 3.0
+    },
+    "Yogurt": {
+      "avg_price": 5.26,
+      "avg_units_sold": 21.5,
+      "avg_delivery_days": 3.0
+    }
+  },
+  "weekly_defaults": {
+    "Juice": {
+      "avg_weekly_units": 957.0,
+      "avg_promo_rate": 0.15,
+      "avg_price": 5.27,
+      "avg_n_orders": 53.0
+    },
+    "Milk": {
+      "avg_weekly_units": 5050.0,
+      "avg_promo_rate": 0.15,
+      "avg_price": 5.23,
+      "avg_n_orders": 288.0
+    },
+    "ReadyMeal": {
+      "avg_weekly_units": 4747.0,
+      "avg_promo_rate": 0.15,
+      "avg_price": 5.27,
+      "avg_n_orders": 239.0
+    },
+    "SnackBar": {
+      "avg_weekly_units": 5306.0,
+      "avg_promo_rate": 0.15,
+      "avg_price": 5.23,
+      "avg_n_orders": 265.0
+    },
+    "Yogurt": {
+      "avg_weekly_units": 10514.0,
+      "avg_promo_rate": 0.15,
+      "avg_price": 5.26,
+      "avg_n_orders": 488.0
+    }
+  },
+  "model1_columns": [
+    "price_unit",
+    "promotion_flag",
+    "delivery_days",
+    "month",
+    "quarter",
+    "week_of_year",
+    "weekend_flag",
+    "demand_lag1",
+    "demand_roll3",
+    "demand_roll7",
+    "category_Milk",
+    "category_ReadyMeal",
+    "category_SnackBar",
+    "category_Yogurt",
+    "channel_E-commerce",
+    "channel_Retail",
+    "region_PL-North",
+    "region_PL-South",
+    "pack_type_Multipack",
+    "pack_type_Single"
+  ],
+  "model2_columns": [
+    "price_unit",
+    "promotion_flag",
+    "delivery_days",
+    "month",
+    "quarter",
+    "week_of_year",
+    "weekend_flag",
+    "demand_lag1",
+    "demand_roll3",
+    "demand_roll7",
+    "category_Milk",
+    "category_ReadyMeal",
+    "category_SnackBar",
+    "category_Yogurt",
+    "channel_E-commerce",
+    "channel_Retail",
+    "region_PL-North",
+    "region_PL-South",
+    "pack_type_Multipack",
+    "pack_type_Single"
+  ],
+  "model3_columns": [
+    "lag1",
+    "lag2",
+    "roll4",
+    "promo_rate",
+    "avg_price",
+    "n_orders",
+    "month",
+    "weekofyear",
+    "category_Milk",
+    "category_ReadyMeal",
+    "category_SnackBar",
+    "category_Yogurt"
+  ],
+  "model_metrics": {
+    "model1": {
+      "r2": 0.339,
+      "mae": 6.005,
+      "algo": "Gradient Boosting"
+    },
+    "model2": {
+      "r2": 0.5438,
+      "mae": 31.55,
+      "algo": "Gradient Boosting"
+    },
+    "model3": {
+      "r2": 0.9462,
+      "mae": 368.2,
+      "algo": "Gradient Boosting"
+    }
+  }
+}
