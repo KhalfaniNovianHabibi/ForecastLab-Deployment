@@ -3,9 +3,6 @@ FMCG Forecasting App — Streamlit deployment utk 3 model final:
 1. Demand Forecasting (order-level)
 2. Revenue Forecasting (order-level)
 3. Weekly Aggregate Demand Forecasting (per kategori)
-
-Cara jalankan lokal : streamlit run app.py
-Cara deploy         : lihat README.md
 """
 
 # ==== IMPORT LIBRARY ====

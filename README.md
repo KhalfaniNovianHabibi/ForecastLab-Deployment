@@ -5,18 +5,14 @@ dan **3 model forecasting final dari Data Scientist**:
 
 | Halaman | Role | Isi |
 |---|---|---|
-| 📊 Data Analyst — EDA & Insights | Data Analyst | 6 visualisasi EDA, restock priority matrix, business impact simulation, key insights & rekomendasi |
-| 📦 Model 1 — Demand Forecasting (order-level) | Data Scientist | R² = 0,34 |
-| 💰 Model 2 — Revenue Forecasting (order-level) | Data Scientist | R² = 0,54 |
-| 📈 Model 3 — Weekly Aggregate Demand Forecasting (per kategori) | Data Scientist | R² = 0,95 |
-
-Sudah diuji lulus (syntax check `python -m py_compile`, validasi struktur `eda_metadata.json`
-terhadap seluruh field yang diakses `app.py`, dan pengecekan keberadaan semua asset gambar) —
-siap langsung di-deploy.
+| Data Analyst — EDA & Insights | Data Analyst | 6 visualisasi EDA, restock priority matrix, business impact simulation, key insights & rekomendasi |
+| Model 1 — Demand Forecasting (order-level) | Data Scientist | R² = 0,34 |
+| Model 2 — Revenue Forecasting (order-level) | Data Scientist | R² = 0,54 |
+| Model 3 — Weekly Aggregate Demand Forecasting (per kategori) | Data Scientist | R² = 0,95 |
 
 ---
 
-## 📁 Struktur File (WAJIB semuanya ikut di-push ke GitHub)
+## Struktur File
 
 ```
 streamlit_app/
@@ -43,67 +39,7 @@ streamlit_app/
 
 ---
 
-## 🧠 Kenapa chart EDA berupa gambar statis, bukan re-compute saat runtime?
-
-Notebook Data Analyst (`FMCG_Supply_Chain_Predictor_Analysis_v2.ipynb`) memproses raw dataset
-`forecasting_data_engineer.csv` (190.757 baris) yang **tidak ikut di-deploy** ke aplikasi ini
-(sama seperti pendekatan `app_metadata.json` milik Data Scientist yang tidak menyertakan raw data
-saat deploy model). Untuk menjaga konsistensi pendekatan itu sekaligus membuat aplikasi ringan &
-cepat load, ke-6 chart hasil analisis diekstrak langsung dari output notebook (PNG) dan seluruh
-angka/tabel pendukungnya (revenue, stockout rate, top-15 restock priority, simulasi dampak bisnis,
-dll.) disalin ke `eda_metadata.json`. Kalau ke depan raw dataset ingin ikut di-deploy supaya chart
-bisa dibuat interaktif (mis. pakai Plotly + filter dinamis), tinggal tambahkan file CSV-nya dan
-ganti bagian `st.image(...)` di halaman Data Analyst dengan kode plotting langsung dari DataFrame.
-
----
-
-## 🚀 Cara Deploy ke Streamlit Community Cloud (streamlit.io)
-
-### 1. Push ke GitHub
-```bash
-cd streamlit_app
-git init
-git add .
-git commit -m "FMCG forecasting app - final project (DA + DS)"
-git branch -M main
-git remote add origin https://github.com/<username>/<nama-repo>.git
-git push -u origin main
-```
-Bisa juga lewat GitHub Desktop / upload manual via web GitHub — yang penting semua isi folder
-`streamlit_app/` (termasuk folder `models/` dan `assets/`) ada di root repo.
-
-### 2. Deploy di Streamlit Cloud
-1. Buka **[share.streamlit.io](https://share.streamlit.io)**, login dgn akun GitHub yang sama.
-2. Klik **"New app"**.
-3. Pilih repo, branch `main`, dan **Main file path** isi: `app.py`.
-4. Klik **"Deploy"** — tunggu proses build (± 2-5 menit, Streamlit Cloud akan install
-   `requirements.txt` otomatis).
-5. Selesai — aplikasi bisa diakses via URL publik `https://<nama-app>.streamlit.app`.
-
-### 3. Kalau build gagal
-- Cek log build di dashboard Streamlit Cloud.
-- Penyebab paling umum: versi Python di Streamlit Cloud tidak cocok dgn `scikit-learn==1.8.0`.
-  Kalau itu terjadi, tambahkan file `runtime.txt` berisi `python-3.12` (atau versi Python yang
-  dipakai saat training) di root repo.
-- Pastikan folder `assets/eda/` ikut ter-push — kalau tidak, halaman Data Analyst akan error
-  `FileNotFoundError` saat memanggil `st.image()`.
-
----
-
-## 💻 Cara Jalankan Lokal (opsional, utk cek dulu sebelum deploy)
-
-```bash
-cd streamlit_app
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-streamlit run app.py
-```
-Lalu buka `http://localhost:8501` di browser.
-
----
-
-## 🧠 Cara Kerja Aplikasi (ringkas)
+## Cara Kerja Aplikasi
 
 - `app.py` memuat ulang 3 model `.pkl` (sudah dilatih sebelumnya, jadi TIDAK training ulang saat
   aplikasi jalan — load instan), `app_metadata.json` (kategori & default historis DS), dan
