@@ -41,7 +41,14 @@ def load_models():
     return m1, m2, m3
 
 
+@st.cache_data
+def load_eda_metadata():
+    with open('eda_metadata.json') as f:                              # hasil ekstraksi notebook Data Analyst (EDA & business insight)
+        return json.load(f)
+
+
 META = load_metadata()                                                # metadata: kategori, default historis, kolom fitur, metrik
+EDA = load_eda_metadata()                                             # metadata EDA: chart, insight, tabel restock, simulasi dampak bisnis
 MODEL1, MODEL2, MODEL3 = load_models()                                # 3 model terlatih siap dipakai prediksi
 
 
@@ -92,7 +99,13 @@ st.sidebar.title('📦 FMCG Forecasting')                                # judul
 st.sidebar.caption('Final Project — Data Science Bootcamp')             # sub-judul kecil
 page = st.sidebar.radio(                                                # menu navigasi radio button
     'Pilih halaman:',
-    ['🏠 Overview', '📦 Model 1 — Demand', '💰 Model 2 — Revenue', '📈 Model 3 — Weekly Aggregate'],
+    [
+        '🏠 Overview',
+        '📊 Data Analyst — EDA & Insights',
+        '📦 Model 1 — Demand',
+        '💰 Model 2 — Revenue',
+        '📈 Model 3 — Weekly Aggregate',
+    ],
 )
 st.sidebar.divider()                                                     # garis pemisah
 st.sidebar.markdown(
@@ -141,6 +154,102 @@ if page == '🏠 Overview':
 
         Silakan pilih model di menu sebelah kiri untuk mencoba prediksi secara interaktif.
         """
+    )
+
+# =========================================================================
+# HALAMAN: DATA ANALYST — EDA & BUSINESS INSIGHTS
+# Konten halaman ini diekstrak dari notebook Data Analyst
+# (FMCG_Supply_Chain_Predictor_Analysis_v2.ipynb) — 6 visualisasi EDA inti,
+# restock priority matrix, dan simulasi dampak bisnis. Karena raw dataset
+# (forecasting_data_engineer.csv) tidak ikut di-deploy, chart ditampilkan
+# sbg gambar statis hasil render notebook (bukan re-compute saat runtime),
+# sedangkan angka & tabel diambil dari eda_metadata.json.
+# =========================================================================
+elif page == '📊 Data Analyst — EDA & Insights':
+    st.title('📊 Data Analyst — Exploratory Data Analysis & Business Insights')
+    st.caption(
+        'Baseline analitik sebelum model dibangun — kuantifikasi pain point overstock & stockout, '
+        'serta rekomendasi restock berbasis data historis 2022-2024.'
+    )
+
+    bu = EDA['business_understanding']
+    with st.expander('🎯 Business Understanding', expanded=False):
+        st.markdown(f"**Ringkasan proyek:** {bu['project_summary']}")
+        st.markdown('**Pain points utama:**')
+        for p in bu['pain_points']:
+            st.markdown(f'- {p}')
+        st.markdown(f"**Business objective:** {bu['objective']}")
+
+    st.divider()
+    st.subheader('Ringkasan Angka Kunci')
+    km = EDA['key_metrics']
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric('Total Revenue', f"$ {km['total_revenue']:,.0f}")
+    c2.metric('Total Unit Terjual', f"{km['total_units_sold']:,.0f} unit")
+    c3.metric('Tingkat Stockout', f"{km['stockout_rate_pct']:.2f}%")
+    c4.metric('Data Quality', 'Bersih ✅', f"{km['missing_values']} missing, {km['duplicate_rows']} duplikat")
+    st.caption(
+        f"Dataset: {EDA['dataset_info']['ukuran']} · Periode {EDA['dataset_info']['periode']} · "
+        f"Sumber: {EDA['dataset_info']['sumber']}"
+    )
+
+    st.divider()
+    st.subheader('6 Visualisasi Inti')
+    for viz in EDA['visualizations']:                                  # loop tiap visualisasi: gambar + insight
+        st.markdown(f"### {viz['title']}")
+        img_col, text_col = st.columns([1.4, 1])
+        with img_col:
+            st.image(f"assets/eda/{viz['file']}", width='stretch')
+        with text_col:
+            st.markdown(f"**Apa yang ditampilkan:** {viz['apa_yang_ditampilkan']}")
+            st.markdown(f"**Cara membaca:** {viz['cara_membaca']}")
+            st.info(f"**Insight utama:** {viz['insight']}")
+            st.success(f"**Implikasi bisnis:** {viz['implikasi']}")
+        st.divider()
+
+    st.subheader('📋 Top 15 Prioritas Restock (SKU x Channel x Region)')
+    rp = EDA['restock_priority']
+    rc1, rc2, rc3, rc4 = st.columns(4)
+    rc1.metric('Total Kombinasi Dianalisis', rp['total_combinations_analyzed'])
+    rc2.metric('🔴 Critical', rp['risk_distribution']['Critical'])
+    rc3.metric('🟠 High', rp['risk_distribution']['High'])
+    rc4.metric('🟡 Medium / 🟢 Safe', f"{rp['risk_distribution']['Medium']} / {rp['risk_distribution']['Safe']}")
+    st.caption(rp['methodology'])
+    top15_df = pd.DataFrame(rp['top15_table'])
+    st.dataframe(top15_df, width='stretch', hide_index=True)
+
+    st.divider()
+    st.subheader('💡 Business Impact Simulation')
+    bis = EDA['business_impact_simulation']
+    sim1, sim2 = st.columns(2)
+    with sim1:
+        st.markdown('**Sisi Overstock (Inventory Waste)**')
+        st.metric('Baseline idle stock / hari', f"$ {bis['overstock_side']['baseline_avg_idle_value_per_day_usd']:,.0f}")
+        st.metric('Target setelah reduksi 50%', f"$ {bis['overstock_side']['target_after_50pct_reduction_usd']:,.0f}")
+        st.metric('Potensi efisiensi modal / hari', f"$ {bis['overstock_side']['potential_capital_efficiency_per_day_usd']:,.0f}")
+    with sim2:
+        st.markdown('**Sisi Stockout (Lost Revenue)**')
+        st.metric('Estimasi total revenue hilang (2022-2024)', f"$ {bis['stockout_side']['total_lost_revenue_estimate_usd']:,.0f}")
+        st.metric(
+            f"Potensi revenue dipulihkan ({bis['stockout_side']['recoverable_pct_range']})",
+            f"$ {bis['stockout_side']['recoverable_revenue_low_usd']:,.0f} - $ {bis['stockout_side']['recoverable_revenue_high_usd']:,.0f}",
+        )
+    st.caption(bis['note'])
+
+    st.divider()
+    st.subheader('🔑 Key Insights & Rekomendasi')
+    for insight in EDA['key_insights']:
+        st.markdown(f'- {insight}')
+
+    st.markdown('#### Rekomendasi per Role')
+    rec_df = pd.DataFrame(EDA['recommendations']).rename(columns={'untuk': 'Untuk', 'rekomendasi': 'Rekomendasi'})
+    st.dataframe(rec_df, width='stretch', hide_index=True)
+
+    st.markdown('#### Kesimpulan')
+    st.markdown(EDA['conclusion'])
+    st.caption(
+        'Sumber: FMCG_Supply_Chain_Predictor_Analysis_v2.ipynb — Data Analyst Notebook, '
+        'Team: Khalfani Novian Habibi, Rendy Azly, Dennis Wirawan · FTDS 2026.'
     )
 
 # =========================================================================

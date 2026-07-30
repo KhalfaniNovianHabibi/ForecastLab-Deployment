@@ -1,0 +1,173 @@
+{
+  "dataset_info": {
+    "nama_dataset": "FMCG Daily Sales Data (2022-2024)",
+    "sumber": "Kaggle — kaggle.com/code/mishashikhov/fmcg-sales-forecasting-ml-case-study",
+    "ukuran": "190.757 baris x 21 kolom (setelah data engineering)",
+    "periode": "21 Januari 2022 - 31 Desember 2024",
+    "granularitas": "Per kombinasi transaksi harian: SKU x Channel x Region x Pack Type",
+    "lisensi": "CC0: Public Domain"
+  },
+  "key_metrics": {
+    "total_revenue": 19951543,
+    "total_units_sold": 3799860,
+    "stockout_rate_pct": 2.03,
+    "missing_values": 0,
+    "duplicate_rows": 0
+  },
+  "revenue_contribution_by_category": [
+    {"category": "Yogurt", "revenue": 8226193, "pct": 41.2},
+    {"category": "Milk", "revenue": 4095375, "pct": 20.5},
+    {"category": "ReadyMeal", "revenue": 3576348, "pct": 17.9},
+    {"category": "SnackBar", "revenue": 3401349, "pct": 17.0},
+    {"category": "Juice", "revenue": 652277, "pct": 3.3}
+  ],
+  "revenue_by_region": [
+    {"region": "PL-South", "revenue": 6666238.54},
+    {"region": "PL-North", "revenue": 6664220.52},
+    {"region": "PL-Central", "revenue": 6621084.29}
+  ],
+  "revenue_by_channel": [
+    {"channel": "Retail", "revenue": 6655807.06},
+    {"channel": "E-commerce", "revenue": 6653435.41},
+    {"channel": "Discount", "revenue": 6642300.88}
+  ],
+  "top5_stockout_combinations": [
+    {"category": "Juice", "region": "PL-Central", "channel": "E-commerce", "stockout_rate_pct": 3.10},
+    {"category": "Juice", "region": "PL-South", "channel": "Retail", "stockout_rate_pct": 2.77},
+    {"category": "Milk", "region": "PL-North", "channel": "Discount", "stockout_rate_pct": 2.51},
+    {"category": "SnackBar", "region": "PL-Central", "channel": "Retail", "stockout_rate_pct": 2.44},
+    {"category": "SnackBar", "region": "PL-North", "channel": "Discount", "stockout_rate_pct": 2.34}
+  ],
+  "top5_waste_combinations": [
+    {"category": "Juice", "region": "PL-North", "channel": "Discount", "avg_idle_value_usd": 758.95},
+    {"category": "Juice", "region": "PL-South", "channel": "Discount", "avg_idle_value_usd": 741.71},
+    {"category": "Juice", "region": "PL-North", "channel": "Retail", "avg_idle_value_usd": 741.68},
+    {"category": "Juice", "region": "PL-Central", "channel": "Discount", "avg_idle_value_usd": 739.00},
+    {"category": "ReadyMeal", "region": "PL-South", "channel": "Discount", "avg_idle_value_usd": 738.72}
+  ],
+  "promo_uplift_by_channel": [
+    {"channel": "Discount", "uplift_pct": 95.49},
+    {"channel": "E-commerce", "uplift_pct": 95.97},
+    {"channel": "Retail", "uplift_pct": 94.46}
+  ],
+  "restock_priority": {
+    "total_combinations_analyzed": 270,
+    "risk_distribution": {
+      "Critical": 11,
+      "High": 24,
+      "Medium": 157,
+      "Safe": 78,
+      "Tidak Cukup Data": 0
+    },
+    "methodology": "DSR (Days of Stock Remaining) = stok tersedia terkini / rata-rata penjualan harian (30 hari terakhir). Kategori risiko: Critical (<=3 hari), High (4-7 hari), Medium (8-14 hari), Safe (>14 hari).",
+    "top15_table": [
+      {"sku": "SN-028", "brand": "SnBrand2", "category": "SnackBar", "channel": "Discount", "region": "PL-South", "latest_stock": 0, "avg_daily_sales": 15.27, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "MI-008", "brand": "MiBrand3", "category": "Milk", "channel": "Retail", "region": "PL-North", "latest_stock": 0, "avg_daily_sales": 10.90, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "YO-029", "brand": "YoBrand4", "category": "Yogurt", "channel": "Discount", "region": "PL-Central", "latest_stock": 0, "avg_daily_sales": 12.37, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "SN-030", "brand": "SnBrand2", "category": "SnackBar", "channel": "E-commerce", "region": "PL-Central", "latest_stock": 0, "avg_daily_sales": 11.93, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "MI-026", "brand": "MiBrand4", "category": "Milk", "channel": "Discount", "region": "PL-North", "latest_stock": 0, "avg_daily_sales": 11.43, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "MI-002", "brand": "MiBrand2", "category": "Milk", "channel": "E-commerce", "region": "PL-South", "latest_stock": 0, "avg_daily_sales": 12.57, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "MI-022", "brand": "MiBrand3", "category": "Milk", "channel": "Discount", "region": "PL-North", "latest_stock": 0, "avg_daily_sales": 12.20, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "MI-022", "brand": "MiBrand3", "category": "Milk", "channel": "Retail", "region": "PL-South", "latest_stock": 0, "avg_daily_sales": 9.83, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "RE-004", "brand": "ReBrand1", "category": "ReadyMeal", "channel": "E-commerce", "region": "PL-North", "latest_stock": 0, "avg_daily_sales": 18.63, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "SN-010", "brand": "SnBrand2", "category": "SnackBar", "channel": "E-commerce", "region": "PL-Central", "latest_stock": 0, "avg_daily_sales": 13.87, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "SN-010", "brand": "SnBrand2", "category": "SnackBar", "channel": "Retail", "region": "PL-Central", "latest_stock": 0, "avg_daily_sales": 13.10, "days_of_stock_remaining": 0.00, "risk_category": "Critical"},
+      {"sku": "RE-004", "brand": "ReBrand1", "category": "ReadyMeal", "channel": "Retail", "region": "PL-North", "latest_stock": 110, "avg_daily_sales": 24.37, "days_of_stock_remaining": 4.51, "risk_category": "High"},
+      {"sku": "RE-004", "brand": "ReBrand1", "category": "ReadyMeal", "channel": "Discount", "region": "PL-South", "latest_stock": 92, "avg_daily_sales": 20.17, "days_of_stock_remaining": 4.56, "risk_category": "High"},
+      {"sku": "RE-017", "brand": "ReBrand2", "category": "ReadyMeal", "channel": "Retail", "region": "PL-Central", "latest_stock": 100, "avg_daily_sales": 20.57, "days_of_stock_remaining": 4.86, "risk_category": "High"},
+      {"sku": "YO-024", "brand": "YoBrand2", "category": "Yogurt", "channel": "Retail", "region": "PL-Central", "latest_stock": 60, "avg_daily_sales": 12.30, "days_of_stock_remaining": 4.88, "risk_category": "High"}
+    ]
+  },
+  "business_impact_simulation": {
+    "overstock_side": {
+      "baseline_avg_idle_value_per_day_usd": 128246,
+      "target_after_50pct_reduction_usd": 64123,
+      "potential_capital_efficiency_per_day_usd": 64123
+    },
+    "stockout_side": {
+      "total_lost_revenue_estimate_usd": 414322,
+      "recoverable_revenue_low_usd": 124297,
+      "recoverable_revenue_high_usd": 248593,
+      "recoverable_pct_range": "30% - 60%"
+    },
+    "note": "Angka pada Skenario 2 bersifat konseptual/ilustratif, mengikuti arahan proposal bahwa simulasi tidak harus akurat secara statistik, selama logika dan arahnya masuk akal secara bisnis."
+  },
+  "visualizations": [
+    {
+      "id": "viz1",
+      "file": "viz1_revenue_trend.png",
+      "title": "Tren Revenue Bulanan per Kategori (2022-2024)",
+      "apa_yang_ditampilkan": "Area chart bertumpuk (stacked area) yang menunjukkan kontribusi revenue tiap kategori produk (Milk, Yogurt, ReadyMeal, Juice, SnackBar) setiap bulan dari Januari 2022 hingga Desember 2024. Garis putus-putus hitam menunjukkan total revenue keseluruhan sebagai referensi tren agregat.",
+      "cara_membaca": "Ketebalan tiap lapisan warna pada satu titik waktu menunjukkan besar kontribusi revenue kategori tersebut pada bulan itu. Garis putus-putus hitam adalah total keseluruhan.",
+      "insight": "Revenue tumbuh signifikan dari awal 2022 hingga stabil di 2023-2024. Komposisi kategori relatif proporsional dan stabil dari waktu ke waktu — portofolio produk cukup seimbang, tidak bergantung pada satu kategori saja. Yogurt adalah kontributor revenue terbesar (41,2%).",
+      "implikasi": "Karena tidak ada kategori yang secara ekstrem lebih dominan, strategi restocking sebaiknya tidak diseragamkan secara nasional per kategori saja — perlu mempertimbangkan juga dimensi channel dan region."
+    },
+    {
+      "id": "viz2",
+      "file": "viz2_revenue_distribution.png",
+      "title": "Distribusi Revenue — Category x Channel x Region",
+      "apa_yang_ditampilkan": "Tiga panel bar chart bertumpuk (stacked bar), satu panel untuk tiap region (PL-Central, PL-North, PL-South). Sumbu-x adalah kategori produk, tumpukan warna menunjukkan kontribusi tiap channel penjualan.",
+      "cara_membaca": "Tinggi total satu bar menunjukkan total revenue kategori tersebut di region itu. Warna dalam bar menunjukkan proporsi tiap channel.",
+      "insight": "Revenue terdistribusi cukup merata antar region (PL-South, PL-North, PL-Central selisih tipis) maupun antar channel (Retail, E-commerce, Discount juga hampir setara).",
+      "implikasi": "Tidak ada region atau channel tunggal yang mendominasi — strategi supply chain perlu granular di level kombinasi kategori x channel x region, bukan kebijakan nasional yang seragam."
+    },
+    {
+      "id": "viz3",
+      "file": "viz3_stockout_heatmap.png",
+      "title": "Heatmap Stockout Rate — Category x Region, per Channel",
+      "apa_yang_ditampilkan": "Heatmap persentase hari stok habis (stockout) untuk tiap kombinasi kategori-region, dipisah per channel (Retail, E-commerce, Discount).",
+      "cara_membaca": "Semakin gelap warna merah pada sebuah sel, semakin tinggi persentase hari stok habis untuk kombinasi tersebut.",
+      "insight": "5 kombinasi dengan stockout rate tertinggi didominasi kategori Juice — Juice x PL-Central x E-commerce adalah yang paling parah (3,1%).",
+      "implikasi": "Kombinasi dengan stockout rate tinggi sekaligus revenue tinggi adalah prioritas tertinggi untuk perbaikan proses supply chain."
+    },
+    {
+      "id": "viz4",
+      "file": "viz4_waste_heatmap.png",
+      "title": "Heatmap Inventory Waste — Category x Region, per Channel",
+      "apa_yang_ditampilkan": "Struktur identik dengan heatmap stockout, namun mengukur rata-rata nilai stok yang tidak terjual (idle) dalam dollar, per kombinasi kategori-region, tiap channel.",
+      "cara_membaca": "Semakin gelap warna ungu, semakin besar rata-rata nilai stok yang menganggur untuk kombinasi tersebut. `stock_available` adalah snapshot level stok harian (bukan akumulasi), jadi nilai di heatmap mencerminkan tingkat idle stock, bukan penjumlahan unit fisik berulang.",
+      "insight": "Kategori Juice mendominasi top-5 nilai idle stock tertinggi di hampir semua region dan channel — konsisten dengan kontribusi revenue-nya yang paling kecil (3,3%), mengindikasikan Juice cenderung overstock sekaligus kurang laku.",
+      "implikasi": "Overstock dan stockout terbukti terjadi bersamaan pada kombinasi produk yang berbeda-beda — solusinya harus berbasis prediksi per-kombinasi, bukan kebijakan stok yang seragam."
+    },
+    {
+      "id": "viz5",
+      "file": "viz5_promo_effectiveness.png",
+      "title": "Efektivitas Promosi — per Kategori, per Channel",
+      "apa_yang_ditampilkan": "Tiga panel grouped bar chart, satu untuk tiap channel. Setiap panel membandingkan rata-rata unit terjual per kategori, antara kondisi 'Tanpa Promo' dan 'Promo'.",
+      "cara_membaca": "Bandingkan tinggi bar oranye (promo) vs bar abu-abu (tanpa promo) untuk kategori yang sama — semakin besar selisihnya, semakin besar dampak promosi.",
+      "insight": "Promosi meningkatkan rata-rata unit terjual sekitar 94-96% di semua channel (Discount +95,5%, E-commerce +96,0%, Retail +94,5%) — dampaknya sangat konsisten dan besar di semua kombinasi kategori-channel.",
+      "implikasi": "Tim procurement/warehouse sebaiknya menyiapkan buffer stock ekstra secara spesifik untuk kombinasi kategori-channel dengan uplift tertinggi setiap kali ada jadwal promosi."
+    },
+    {
+      "id": "viz6",
+      "file": "viz6_restock_priority.png",
+      "title": "Restock Priority Matrix (SKU x Channel x Region)",
+      "apa_yang_ditampilkan": "Scatter plot dengan tiap titik merepresentasikan satu kombinasi SKU x Channel x Region. Sumbu-x adalah velocity (kecepatan penjualan rata-rata harian, 30 hari terakhir), sumbu-y adalah Days of Stock Remaining (DSR). Tiga panel dipisah per region; bentuk marker menunjukkan channel; warna menunjukkan kategori risiko.",
+      "cara_membaca": "Titik yang berada rendah (DSR kecil) dan jauh ke kanan (velocity tinggi) adalah yang paling mendesak. Garis putus-putus abu-abu di y=7 adalah batas ambang 'High risk'.",
+      "insight": "Dari 270 kombinasi SKU x Channel x Region yang dianalisis: 11 Critical, 24 High, 157 Medium, 78 Safe. Tabel Top 15 memberi instruksi spesifik: restock produk X, untuk channel Y, di region Z.",
+      "implikasi": "Tabel Top 15 bisa langsung dikomunikasikan ke tim procurement/warehouse untuk tindakan restock segera, sekaligus menjadi baseline pembanding bagi tim Data Scientist saat mengevaluasi performa model prediksi."
+    }
+  ],
+  "key_insights": [
+    "Tingkat stockout tercatat sekitar 2,03% dari seluruh transaksi harian, dengan estimasi dampak revenue yang hilang cukup signifikan (~$414 ribu selama 2022-2024).",
+    "Inventory waste (stok idle) juga teridentifikasi jelas dan terkonsentrasi pada kombinasi kategori-region-channel tertentu, terutama kategori Juice.",
+    "Overstock dan stockout terbukti terjadi bersamaan pada kombinasi produk yang berbeda-beda — menegaskan solusi yang dibutuhkan adalah model prediksi per-kombinasi SKU x Channel x Region, bukan kebijakan stok yang seragam.",
+    "Promosi meningkatkan penjualan secara konsisten (~94-96%) di semua kategori dan channel, namun perlu strategi buffer stock yang disesuaikan per kombinasi, bukan merata.",
+    "Risiko stockout maupun waste tidak merata secara geografis maupun channel, mendukung kebutuhan model yang mempertimbangkan region dan channel sebagai fitur penting."
+  ],
+  "recommendations": [
+    {"untuk": "Business/Stakeholder", "rekomendasi": "Prioritaskan restock pada kombinasi SKU x Channel x Region kategori Critical (Visualisasi 6); evaluasi kebijakan pemesanan untuk kombinasi dengan waste tertinggi (Visualisasi 4)."},
+    {"untuk": "Data Engineer", "rekomendasi": "Bangun pipeline otomatis untuk menghitung days_of_stock_remaining dan inventory_waste secara harian, di level SKU x Channel x Region."},
+    {"untuk": "Data Scientist", "rekomendasi": "Gunakan hasil risk category dan waste ranking ini sebagai baseline/benchmark evaluasi model prediksi; pertimbangkan category, channel, region, promotion_flag, dan delivery_days sebagai fitur penting."},
+    {"untuk": "Tim secara umum", "rekomendasi": "Fokuskan diskusi lanjutan pada kombinasi dengan stockout maupun waste tertinggi (Visualisasi 3 dan 4) — kemungkinan butuh investigasi proses distribusi, bukan cuma model prediksi."}
+  ],
+  "business_understanding": {
+    "project_summary": "Dalam melakukan inventory stocking, diperlukan kepastian atas ketersediaan produk untuk mendukung kegiatan bisnis. ForecastLab dikembangkan sebagai aplikasi yang mampu memberikan prediksi ketersediaan inventory, sehingga pengguna dapat melakukan pemesanan sebelum stok barang habis — sekaligus menurunkan waste atau pemesanan stok yang tidak dibutuhkan.",
+    "pain_points": [
+      "Inventory stock terlalu tinggi -> menambah biaya penyimpanan/gudang (overstock)",
+      "Inventory stock terlalu rendah -> kehabisan barang, berpotensi mengurangi revenue (stockout)"
+    ],
+    "objective": "Objective 1 — Inventory Waste Reduction: Menurunkan jumlah inventory waste sebesar 50%."
+  },
+  "conclusion": "Analisis ini menunjukkan bahwa kedua pain point yang diidentifikasi pada proposal — overstock dan stockout — sama-sama nyata dan terukur pada dataset ini, dengan pola yang jelas terkait kategori produk, channel penjualan, dan region geografis. Dengan pendekatan Days of Stock Remaining (DSR) untuk sisi stockout dan analisis inventory waste untuk sisi overstock, tim berhasil membangun baseline analitik yang solid dan selaras dengan business objective: menurunkan inventory waste sebesar 50%. Baseline kuantitatif ini menjadi fondasi bagi tim Data Scientist untuk membangun model prediksi yang lebih canggih, serta bagi tim Data Engineer untuk membangun pipeline data pendukung."
+}
