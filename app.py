@@ -209,7 +209,7 @@ elif page == '⚙️ Data Engineer — ETL Pipeline':
     extract[label="📥 Extract\\n(Read CSV)"];
     validation[label="✅ Data Validation\\nMissing Value\\nDuplicate\\nData Type"];
     cleaning[label="🛠 Data Cleaning\\nCleaning & Consistency"];
-    feature[label="⚙ Feature Engineering\\nMonth\\nQuarter\\nLag\\nRolling"];
+    feature[label="⚙ Feature Engineering\\nYear\\nMonth\\nQuarter\\nWeek of Year\\nDay of Week\\nWeekend Flag\\nRevenue"];
     load[label="📦 Load\\nClean Dataset"];
     eda[label="📊 Data Analyst"];
     model[label="🤖 Forecasting Model"];
@@ -277,16 +277,15 @@ elif page == '⚙️ Data Engineer — ETL Pipeline':
 
     ### ✔ Feature Engineering
 
-    Feature baru yang dibuat:
+    Feature yang dihasilkan pada proses transformasi:
 
+    - year
     - month
     - quarter
     - week_of_year
+    - day_of_week
     - weekend_flag
-    - demand_lag1
-    - demand_roll3
-    - demand_roll7
-    """)
+    - revenue
 
     with st.expander("📦 Load"):
 
@@ -326,31 +325,31 @@ elif page == '⚙️ Data Engineer — ETL Pipeline':
     feature_df = pd.DataFrame({
 
         "Feature":[
+            "year",
             "month",
             "quarter",
             "week_of_year",
+            "day_of_week",
             "weekend_flag",
-            "demand_lag1",
-            "demand_roll3",
-            "demand_roll7"
+            "revenue"
         ],
 
         "Description":[
+            "tahun transaksi",
             "bulan transaksi",
             "kuartal transaksi",
-            "minggu ke-",
-            "indikator weekend",
-            "penjualan sebelumnya",
-            "rata-rata 3 transaksi",
-            "rata-rata 7 transaksi"
+            "minggu ke dalam tahun",
+            "hari dalam minggu",
+            "indikator akhir pekan",
+            "price_unit × units_sold"
         ]
     })
 
     st.dataframe(feature_df, use_container_width=True)
 
     st.info(
-        "Feature-feature tersebut membantu model mempelajari pola historis "
-        "penjualan sehingga prediksi menjadi lebih akurat."
+    "Feature-feature hasil transformasi digunakan untuk proses analisis data, visualisasi, 
+    serta menjadi dasar dalam pembangunan model forecasting."
     )
 
     # ==========================================================
