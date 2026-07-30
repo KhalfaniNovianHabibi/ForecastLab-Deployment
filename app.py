@@ -617,8 +617,8 @@ elif page == '💰 Model 2 — Revenue':
             X = build_feature_row(numeric_values, categorical_values, META['model2_columns'])
             pred = MODEL2.predict(X)[0]
             pred = max(0, pred)
-            st.success(f'### 💰 Prediksi: **Rp {pred:,.0f}** (satuan mata uang dataset)')
-            st.caption(f'MAE model ≈ {META["model_metrics"]["model2"]["mae"]:.1f} — perkiraan ini bisa meleset sekitar segitu secara rata-rata.')
+            st.success(f'### 💰 Prediksi: **$ {pred:,.0f}** ')
+            st.caption(f'MAE model ≈ {META["model_metrics"]["model2"]["mae"]:.1f} — perkiraan ini dapat meleset secara rata-rata.')
 
     with right:
         st.markdown('#### Info Model')
@@ -670,7 +670,7 @@ elif page == '📈 Model 3 — Weekly Aggregate':
             pred = MODEL3.predict(X)[0]
             pred = max(0, pred)
             st.success(f'### 📈 Prediksi: **{pred:,.0f} unit** total minggu ini utk kategori {category}')
-            st.caption(f'MAE model ≈ {META["model_metrics"]["model3"]["mae"]:.0f} unit — model paling akurat dari ketiganya.')
+            st.caption(f'MAE model ≈ {META["model_metrics"]["model3"]["mae"]:.0f} unit.')
 
     with right:
         st.markdown('#### Info Model')
@@ -678,8 +678,8 @@ elif page == '📈 Model 3 — Weekly Aggregate':
         st.metric('MAE (data test)', f"{META['model_metrics']['model3']['mae']:.0f} unit")
         st.markdown('#### Feature Importance')
         st.pyplot(feature_importance_chart(MODEL3, META['model3_columns']), width='stretch')
-        st.caption('Agregasi mingguan meredam noise antar-order — akurasi jauh lebih tinggi dari Model 1.')
+        st.caption('Agregasi mingguan meredam noise antar-order')
 
 # ==== FOOTER ====
 st.divider()
-st.caption('FMCG Forecasting App · Final Project Data Science Bootcamp · Model: Gradient Boosting Regressor')
+st.caption('FMCG Forecasting App · Final Project FTDS · Created by: Khalfani Novian Habibi, Rendy Azly, Dennis Wirawan')
