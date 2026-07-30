@@ -536,10 +536,8 @@ elif page == '📦 Model 1 — Demand':
             pack_type = c2.selectbox('Pack Type', META['pack_types'], key='m1_pack')     # pilih tipe kemasan
 
             defaults = META['category_defaults'][category]                # ambil default historis sesuai kategori terpilih
-            price_unit = c1.number_input('Harga per Unit', min_value=0.5, max_value=20.0,
-                                          value=float(defaults['avg_price']), step=0.1, key='m1_price')
-            delivery_days = c2.slider('Estimasi Lead Time Pengiriman (hari)', 1, 5,
-                                       value=int(round(defaults['avg_delivery_days'])), key='m1_lt')
+            price_unit = defaults['avg_price']
+            delivery_days = int(round(defaults['avg_delivery_days']))
             promotion_flag = st.checkbox('Promosi sedang aktif?', key='m1_promo')
             order_date = st.date_input('Tanggal Order', value=date(2025, 6, 15), key='m1_date')
 
@@ -565,7 +563,7 @@ elif page == '📦 Model 1 — Demand':
             pred = MODEL1.predict(X)[0]                                    # prediksi unit terjual
             pred = max(0, pred)                                            # jaga2 tidak negatif (unit tidak mungkin < 0)
             st.success(f'### 📦 Prediksi: **{pred:,.0f} unit terjual**')
-            st.caption(f'MAE model ≈ {META["model_metrics"]["model1"]["mae"]:.1f} unit — perkiraan ini bisa meleset sekitar segitu secara rata-rata.')
+            st.caption(f'MAE model ≈ {META["model_metrics"]["model1"]["mae"]:.1f} unit — perkiraan ini dapat meleset secara rata-rata.')
 
     with right:
         st.markdown('#### Info Model')
@@ -595,8 +593,7 @@ elif page == '💰 Model 2 — Revenue':
             defaults = META['category_defaults'][category]
             price_unit = c1.number_input('Harga per Unit', min_value=0.5, max_value=20.0,
                                           value=float(defaults['avg_price']), step=0.1, key='m2_price')
-            delivery_days = c2.slider('Estimasi Lead Time Pengiriman (hari)', 1, 5,
-                                       value=int(round(defaults['avg_delivery_days'])), key='m2_lt')
+            delivery_days = int(round(defaults['avg_delivery_days']))
             promotion_flag = st.checkbox('Promosi sedang aktif?', key='m2_promo')
             order_date = st.date_input('Tanggal Order', value=date(2025, 6, 15), key='m2_date')
 

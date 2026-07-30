@@ -1,7 +1,4 @@
-# 📦 FMCG Forecasting App — Deployment Streamlit
-
-Aplikasi web interaktif yang menggabungkan **hasil kerja Data Analyst (EDA & Business Insights)**
-dan **3 model forecasting final dari Data Scientist**:
+# 📦 FMCG Forecasting App — Streamlit Deployment
 
 | Halaman | Role | Isi |
 |---|---|---|
@@ -19,9 +16,9 @@ streamlit_app/
 ├── app.py                        # aplikasi utama Streamlit (5 halaman: EDA + 3 model + overview)
 ├── requirements.txt              # dependency, versi sudah dipin persis sesuai saat model dilatih
 ├── app_metadata.json             # daftar kategori, default historis, nama kolom fitur, metrik model (dari DS)
-├── eda_metadata.json             # NEW — angka kunci, insight, tabel restock, simulasi dampak bisnis (dari DA)
+├── eda_metadata.json             # angka kunci, insight, tabel restock, simulasi dampak bisnis (dari DA)
 ├── assets/
-│   └── eda/                      # NEW — 6 chart PNG hasil render notebook Data Analyst
+│   └── eda/                      # 6 chart PNG hasil render notebook Data Analyst
 │       ├── viz1_revenue_trend.png
 │       ├── viz2_revenue_distribution.png
 │       ├── viz3_stockout_heatmap.png
@@ -51,13 +48,3 @@ streamlit_app/
   restock, dan simulasi dampak bisnis — semuanya diambil dari `eda_metadata.json`.
 - Tiap model forecasting (DS) punya halaman sendiri di sidebar, dengan form input + tombol
   prediksi + panel info (R², MAE, feature importance).
-
-## ⚠️ Batasan yang Perlu Diketahui
-- Model `delivery_days` (prediksi lama pengiriman) dan klasifikasi stockout **sengaja tidak
-  disertakan** — sudah diuji dan terbukti tidak prediktif (R²≈0, ROC-AUC≈0,49) dari data yang ada.
-- Nilai "riwayat penjualan" di form (`demand_lag1`, `roll3`, `roll7`, dst) di-default dari rata-rata
-  historis per kategori — kalau user tahu angka aktual yang lebih spesifik, sebaiknya diisi manual
-  agar prediksi lebih akurat.
-- Chart & tabel di halaman Data Analyst bersifat statis (snapshot dari notebook `_v2`), bukan
-  live-query — kalau raw dataset diperbarui, notebook perlu dijalankan ulang dan
-  `eda_metadata.json` + PNG di `assets/eda/` perlu di-regenerate & di-push ulang.
