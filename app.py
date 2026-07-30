@@ -277,15 +277,16 @@ elif page == '⚙️ Data Engineer — ETL Pipeline':
 
     ### ✔ Feature Engineering
 
-    Feature yang dihasilkan pada proses transformasi:
+    Feature baru yang dibuat:
 
-    - year
     - month
     - quarter
     - week_of_year
-    - day_of_week
     - weekend_flag
-    - revenue
+    - demand_lag1
+    - demand_roll3
+    - demand_roll7
+    """)
 
     with st.expander("📦 Load"):
 
@@ -325,31 +326,31 @@ elif page == '⚙️ Data Engineer — ETL Pipeline':
     feature_df = pd.DataFrame({
 
         "Feature":[
-            "year",
             "month",
             "quarter",
             "week_of_year",
-            "day_of_week",
             "weekend_flag",
-            "revenue"
+            "demand_lag1",
+            "demand_roll3",
+            "demand_roll7"
         ],
 
         "Description":[
-            "tahun transaksi",
             "bulan transaksi",
             "kuartal transaksi",
-            "minggu ke dalam tahun",
-            "hari dalam minggu",
-            "indikator akhir pekan",
-            "price_unit × units_sold"
+            "minggu ke-",
+            "indikator weekend",
+            "penjualan sebelumnya",
+            "rata-rata 3 transaksi",
+            "rata-rata 7 transaksi"
         ]
     })
 
     st.dataframe(feature_df, use_container_width=True)
 
     st.info(
-    "Feature-feature hasil transformasi digunakan untuk proses analisis data, visualisasi, 
-    serta menjadi dasar dalam pembangunan model forecasting."
+        "Feature-feature tersebut membantu model mempelajari pola historis "
+        "penjualan sehingga prediksi menjadi lebih akurat."
     )
 
     # ==========================================================
