@@ -98,6 +98,7 @@ page = st.sidebar.radio(                                                # menu n
     'Pilih halaman:',
     [
         '🏠 Overview',
+        '⚙️ Data Engineer — ETL Pipeline',
         '📊 Data Analyst — EDA & Insights',
         '📦 Model 1 — Demand',
         '💰 Model 2 — Revenue',
@@ -152,6 +153,275 @@ if page == '🏠 Overview':
         Silakan pilih model di menu sebelah kiri untuk mencoba prediksi secara interaktif.
         """
     )
+
+# =========================================================================
+# HALAMAN: DATA ENGINEER — ETL PIPELINE
+# =========================================================================
+elif page == '⚙️ Data Engineer — ETL Pipeline':
+
+    st.title("⚙️ Data Engineer — ETL Pipeline")
+
+    st.caption(
+        "Menampilkan alur Extract, Transform, dan Load (ETL) yang digunakan "
+        "untuk mempersiapkan data sebelum dilakukan analisis dan forecasting."
+    )
+
+    # ==========================================================
+    # SECTION 1
+    # ==========================================================
+    st.header("📌 Project Overview")
+
+    st.markdown("""
+    Dataset berasal dari **Kaggle** berupa transaksi penjualan FMCG periode **2022–2024**.
+
+    **Dataset**
+
+    - 190.757 baris
+    - 21 kolom
+
+    Tujuan ETL adalah:
+
+    - memastikan kualitas data
+    - membersihkan data
+    - melakukan transformasi
+    - menghasilkan dataset siap analisis
+    - menyediakan data yang konsisten untuk Data Analyst dan Data Scientist
+    """)
+
+    st.info(
+        "ETL memastikan seluruh proses analisis dan machine learning "
+        "menggunakan dataset yang sudah tervalidasi."
+    )
+
+    # ==========================================================
+    # SECTION 2
+    # ==========================================================
+    st.header("🔄 Visual ETL Workflow")
+
+    st.graphviz_chart("""
+    digraph ETL {
+
+    rankdir=TB;
+
+    node [shape=box, style="rounded,filled", color="#1f77b4", fillcolor="#EAF4FF"];
+
+    raw[label="📄 Raw Dataset"];
+    extract[label="📥 Extract\\n(Read CSV)"];
+    validation[label="✅ Data Validation\\nMissing Value\\nDuplicate\\nData Type"];
+    cleaning[label="🛠 Data Cleaning\\nCleaning & Consistency"];
+    feature[label="⚙ Feature Engineering\\nMonth\\nQuarter\\nLag\\nRolling"];
+    load[label="📦 Load\\nClean Dataset"];
+    eda[label="📊 Data Analyst"];
+    model[label="🤖 Forecasting Model"];
+
+    raw->extract;
+    extract->validation;
+    validation->cleaning;
+    cleaning->feature;
+    feature->load;
+    load->eda;
+    eda->model;
+
+    }
+    """)
+
+    # ==========================================================
+    # SECTION 3
+    # ==========================================================
+    st.header("📝 ETL Breakdown")
+
+    with st.expander("📥 Extract"):
+
+        st.markdown("""
+    Tahapan Extract bertujuan membaca dataset mentah sebelum dilakukan proses validasi.
+
+    Proses yang dilakukan:
+
+    - Membaca dataset CSV
+    - Import menggunakan pandas
+    - Validasi ukuran dataset
+    - Validasi nama kolom
+    """)
+
+        st.code(
+    """import pandas as pd
+
+    df = pd.read_csv("forecasting_data_engineer.csv")
+
+    print(df.shape)
+    print(df.columns)
+    """,
+    language="python"
+    )
+
+    with st.expander("🛠 Transform"):
+
+        st.markdown("""
+    Tahapan Transform memastikan dataset siap digunakan.
+
+    ### ✔ Missing Value Checking
+
+    Memastikan tidak terdapat nilai kosong pada setiap kolom.
+
+    ### ✔ Duplicate Checking
+
+    Menghapus data duplikat agar tidak memengaruhi analisis.
+
+    ### ✔ Data Type Conversion
+
+    Mengubah tipe data menjadi format yang sesuai.
+
+    ### ✔ Data Consistency
+
+    Memastikan nilai antar kolom konsisten.
+
+    ### ✔ Feature Engineering
+
+    Feature baru yang dibuat:
+
+    - month
+    - quarter
+    - week_of_year
+    - weekend_flag
+    - demand_lag1
+    - demand_roll3
+    - demand_roll7
+    """)
+
+    with st.expander("📦 Load"):
+
+        st.markdown("""
+    Dataset hasil transformasi disimpan sebagai **clean dataset**.
+
+    Dataset ini kemudian digunakan oleh:
+
+    - ✔ Data Analyst
+    - ✔ Data Scientist
+
+    Dengan demikian seluruh tim menggunakan dataset yang sama sehingga analisis menjadi konsisten.
+    """)
+
+    # ==========================================================
+    # SECTION 4
+    # ==========================================================
+    st.header("📊 Data Quality Summary")
+
+    c1, c2, c3, c4 = st.columns(4)
+
+    c1.metric("Missing Value", "0")
+    c2.metric("Duplicate", "0")
+    c3.metric("Rows", "190,757")
+    c4.metric("Columns", "21")
+
+    st.success(
+        "Dataset telah lolos validasi kualitas data sehingga siap digunakan "
+        "pada proses analisis dan machine learning."
+    )
+
+    # ==========================================================
+    # SECTION 5
+    # ==========================================================
+    st.header("⚙ Feature Engineering")
+
+    feature_df = pd.DataFrame({
+
+        "Feature":[
+            "month",
+            "quarter",
+            "week_of_year",
+            "weekend_flag",
+            "demand_lag1",
+            "demand_roll3",
+            "demand_roll7"
+        ],
+
+        "Description":[
+            "bulan transaksi",
+            "kuartal transaksi",
+            "minggu ke-",
+            "indikator weekend",
+            "penjualan sebelumnya",
+            "rata-rata 3 transaksi",
+            "rata-rata 7 transaksi"
+        ]
+    })
+
+    st.dataframe(feature_df, use_container_width=True)
+
+    st.info(
+        "Feature-feature tersebut membantu model mempelajari pola historis "
+        "penjualan sehingga prediksi menjadi lebih akurat."
+    )
+
+    # ==========================================================
+    # SECTION 6
+    # ==========================================================
+    st.header("📦 Pipeline Output")
+
+    st.markdown("""
+
+    """)
+
+    # ==========================================================
+    # SECTION 7
+    # ==========================================================
+    st.header("🧰 Technology Stack")
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.success("🐼 Pandas")
+        st.success("🔢 NumPy")
+
+    with col2:
+        st.success("🐍 Python")
+        st.success("📈 Scikit-learn")
+
+    with col3:
+        st.warning("🗄 PostgreSQL\n\nPipeline Architecture")
+        st.warning("🌬 Apache Airflow\n\nPipeline Architecture")
+
+    with col4:
+        st.success("🖥 Streamlit")
+        st.success("💾 Joblib")
+
+    # ==========================================================
+    # SECTION 8
+    # ==========================================================
+    st.header("👨‍💻 Contribution")
+
+    st.info("""
+    ### 👨‍💻 Data Engineer Responsibilities
+
+    ✔ Data Extraction
+
+    ✔ Data Validation
+
+    ✔ Data Cleaning
+
+    ✔ Feature Engineering
+
+    ✔ ETL Pipeline Design
+
+    ✔ Data Preparation
+
+    ✔ Dataset Delivery for Analytics and Machine Learning
+    """)
+
+    # ==========================================================
+    # SECTION 9
+    # ==========================================================
+    st.header("🚀 Future Improvement")
+
+    st.markdown("""
+    Pada implementasi production, pipeline ini dapat dikembangkan menjadi pipeline otomatis menggunakan:
+
+    - Apache Airflow
+    - PostgreSQL
+    - Docker
+    - Cron Scheduling
+    - Data Validation Monitoring
+    """)
 
 # =========================================================================
 # HALAMAN: DATA ANALYST — EDA & BUSINESS INSIGHTS
